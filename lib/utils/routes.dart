@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pixbay/bindings/home_binding.dart';
 import 'package:pixbay/screens/home_screen.dart';
 
 class Routes {
@@ -8,8 +9,8 @@ class Routes {
 class AppPages {
   static final List<GetPage> pages = [
     GetPage(
-      name: Routes.home,
-      page: () => HomeScreen(),
-    ),
+        name: Routes.home,
+        page: () => const HomeScreen(),
+        binding: HomeBinding()),
   ];
 }

@@ -1,6 +1,10 @@
 # pixbay
 
-Responsive Image Gallery with API Integration
+Responsive Image Gallery with Pixabay API
+
+Snapshots:
+
+![alt text](https://github.com/sharhan108/pixbay/blob/main/assets/images/iphone15_light.png)
 
 This project showcases a Flutter application that fetches images from pixabay API and displays them in a responsive grid layout.
 

@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:pixbay/models/image_model.dart';
 import 'package:pixbay/screens/image_details_screen.dart';
+import 'package:shimmer/shimmer.dart';
 
 Widget kWidth(double width) {
   return SizedBox(
@@ -18,7 +20,7 @@ Widget kHeight(double height) {
 
 Widget backButton() => GestureDetector(
       onTap: () => Get.back(),
-      child: Icon(
+      child: const Icon(
         Icons.arrow_back,
         color: Colors.black,
       ),
@@ -45,7 +47,7 @@ Widget imageTile(BuildContext context, ImageModel image) {
             height: 200,
             width: 200,
             placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator()),
+                const Center(child: CupertinoActivityIndicator()),
           ),
         ),
         Positioned(
@@ -125,4 +127,30 @@ Route createCustomPageRoute({
       // );
     },
   );
+}
+
+Widget shimmer(Widget widget) {
+  final colorTheme = Theme.of(Get.context!);
+
+  return Shimmer(
+      period: const Duration(milliseconds: 800),
+      gradient: const LinearGradient(
+        colors: [
+          Color(0xFFEBEBF4),
+          Color(0xFFF4F4F4),
+          Color(0xFFEBEBF4),
+          // colorTheme.dividerColor,
+          // colorTheme.dividerColor,
+          // colorTheme.dividerColor,
+        ],
+        stops: [
+          0.1,
+          0.3,
+          0.4,
+        ],
+        begin: Alignment(-1.0, -0.3),
+        end: Alignment(1.0, 0.3),
+        tileMode: TileMode.clamp,
+      ),
+      child: widget);
 }

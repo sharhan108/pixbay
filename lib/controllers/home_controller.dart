@@ -5,6 +5,7 @@ import 'package:pixbay/services/pixabay_service.dart';
 
 class HomeController extends GetxController {
   final pixabayApiService = PixabayService();
+  RxBool imagesLoading = true.obs;
   RxList<ImageModel> displayImages = <ImageModel>[].obs;
 
   @override
@@ -15,15 +16,18 @@ class HomeController extends GetxController {
 
   Future<void> fetchImagesFromPixabay() async {
     try {
+      imagesLoading(true);
       final images = await pixabayApiService.fetchImages();
       if (images.isNotEmpty) {
         final imageModels =
             images.map((image) => ImageModel.fromJson(image)).toList();
         displayImages.assignAll(imageModels);
         debugPrint(displayImages.length.toString());
+        imagesLoading(false);
       }
     } catch (e) {
       debugPrint('Error fetchImagesFromPixabay: $e');
+      imagesLoading(false);
     }
   }
 }

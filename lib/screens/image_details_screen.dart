@@ -21,7 +21,7 @@ class ImageDetailsScreen extends StatelessWidget {
           child: Hero(
             tag: "image_${image.id}",
             child: CachedNetworkImage(
-              imageUrl: image.previewUrl,
+              imageUrl: image.largeImageUrl,
               width: Get.width,
               height: Get.height,
               fit: BoxFit.contain,

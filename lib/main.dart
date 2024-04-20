@@ -1,3 +1,4 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:pixbay/utils/routes.dart';
@@ -15,6 +16,9 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.home,
       getPages: AppPages.pages,
+      theme: FlexThemeData.light(scheme: FlexScheme.mandyRed),
+      darkTheme: FlexThemeData.dark(scheme: FlexScheme.mandyRed),
+      themeMode: ThemeMode.system,
     );
   }
 }

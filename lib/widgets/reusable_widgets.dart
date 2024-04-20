@@ -21,22 +21,22 @@ Widget kHeight(double height) {
 
 Widget backButton() => GestureDetector(
       onTap: () => Get.back(),
-      child: const Icon(
+      child: Icon(
         Icons.arrow_back,
-        color: Colors.black,
+        color: Theme.of(Get.context!).colorScheme.primary,
       ),
     );
 
 Widget imageTile(BuildContext context, ImageModel image) {
   return GestureDetector(
     onTap: () {
-      // Get.to(() => ImageDetailsScreen(image: image));
-      Navigator.push(
-        context,
-        createCustomPageRoute(
-          pageBuilder: (context) => ImageDetailsScreen(image: image),
-        ),
-      );
+      Get.to(() => ImageDetailsScreen(image: image));
+      // Navigator.push(
+      //   context,
+      //   createCustomPageRoute(
+      //     pageBuilder: (context) => ImageDetailsScreen(image: image),
+      //   ),
+      // );
     },
     child: Stack(
       children: [
@@ -47,8 +47,10 @@ Widget imageTile(BuildContext context, ImageModel image) {
             fit: BoxFit.cover,
             height: 200,
             width: 200,
-            placeholder: (context, url) =>
-                const Center(child: CupertinoActivityIndicator()),
+            placeholder: (context, url) => shimmer(const SizedBox(
+              height: 200,
+              width: 200,
+            )),
           ),
         ),
         Positioned(
@@ -117,17 +119,11 @@ Route createCustomPageRoute({
         ),
         child: child,
       );
-      // return SlideTransition(
-      //   position: offsetAnimation,
-      //   child: child,
-      // );
     },
   );
 }
 
 Widget shimmer(Widget widget) {
-  final colorTheme = Theme.of(Get.context!);
-
   return Shimmer(
       period: const Duration(milliseconds: 800),
       gradient: const LinearGradient(
@@ -135,9 +131,6 @@ Widget shimmer(Widget widget) {
           Color(0xFFEBEBF4),
           Color(0xFFF4F4F4),
           Color(0xFFEBEBF4),
-          // colorTheme.dividerColor,
-          // colorTheme.dividerColor,
-          // colorTheme.dividerColor,
         ],
         stops: [
           0.1,

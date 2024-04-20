@@ -9,7 +9,12 @@ class PixabayService {
   Future<List> fetchImages() async {
     try {
       response = await dio.get(
-          "https://pixabay.com/api/?key=${Env.apiKey}&q=technology&image_type=photo&pretty=true&min_width=200&min_height=200&per_page=40");
+          "https://pixabay.com/api/?key=${Env.apiKey}&q=technology&image_type=photo&pretty=true&min_width=200&min_height=200&per_page=40",
+          options: Options(
+        validateStatus: (status) {
+          return true;
+        },
+      ));
       if (response.statusCode == 200) {
         debugPrint(response.data.toString());
         final result = response.data["hits"] as List;

@@ -26,12 +26,18 @@ class ResponsiveGridView extends StatelessWidget {
   }
 
   int _calculateColumns(double width) {
-    if (width >= 800) {
-      return 4;
-    } else if (width >= 600) {
-      return 3;
+    if (width >= 1600) {
+      return 6;
+    } else if (width >= 1200) {
+      return 5;
     } else {
-      return 2;
+      if (width >= 800) {
+        return 4;
+      } else if (width >= 600) {
+        return 3;
+      } else {
+        return 2;
+      }
     }
   }
 }

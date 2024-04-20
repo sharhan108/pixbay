@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/route_manager.dart';
 import 'package:pixbay/models/image_model.dart';
 import 'package:pixbay/screens/image_details_screen.dart';
@@ -40,17 +41,23 @@ Widget imageTile(BuildContext context, ImageModel image) {
     },
     child: Stack(
       children: [
-        Hero(
-          tag: image.id,
-          child: CachedNetworkImage(
-            imageUrl: image.largeImageUrl,
-            fit: BoxFit.cover,
-            height: 200,
-            width: 200,
-            placeholder: (context, url) => shimmer(const SizedBox(
-              height: 200,
-              width: 200,
-            )),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          top: 0,
+          child: Hero(
+            tag: image.id,
+            child: CachedNetworkImage(
+              imageUrl: image.largeImageUrl,
+              fit: BoxFit.cover,
+              // height: 200,
+              // width: 200,
+              placeholder: (context, url) => shimmer(const SizedBox(
+                height: 200,
+                width: 200,
+              )),
+            ),
           ),
         ),
         Positioned(

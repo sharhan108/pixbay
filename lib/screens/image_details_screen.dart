@@ -19,7 +19,8 @@ class ImageDetailsScreen extends StatelessWidget {
         onTap: () => Navigator.pop(context),
         child: Center(
           child: Hero(
-            tag: "image_${image.id}",
+            tag: image.id,
+            // tag: "image_${image.id}",
             child: CachedNetworkImage(
               imageUrl: image.largeImageUrl,
               width: Get.width,

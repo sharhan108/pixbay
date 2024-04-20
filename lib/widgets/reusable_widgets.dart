@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:pixbay/models/image_model.dart';
 import 'package:pixbay/screens/image_details_screen.dart';
+import 'package:pixbay/utils/common_functions.dart';
 import 'package:shimmer/shimmer.dart';
 
 Widget kWidth(double width) {
@@ -29,10 +30,10 @@ Widget backButton() => GestureDetector(
 Widget imageTile(BuildContext context, ImageModel image) {
   return GestureDetector(
     onTap: () {
+      // Get.to(() => ImageDetailsScreen(image: image));
       Navigator.push(
         context,
         createCustomPageRoute(
-          transitionDuration: Duration(milliseconds: 500),
           pageBuilder: (context) => ImageDetailsScreen(image: image),
         ),
       );
@@ -42,7 +43,7 @@ Widget imageTile(BuildContext context, ImageModel image) {
         Hero(
           tag: image.id,
           child: CachedNetworkImage(
-            imageUrl: image.previewUrl,
+            imageUrl: image.largeImageUrl,
             fit: BoxFit.cover,
             height: 200,
             width: 200,
@@ -68,7 +69,7 @@ Widget imageTile(BuildContext context, ImageModel image) {
                     ),
                     kWidth(4),
                     Text(
-                      image.likes.toString(),
+                      image.likes.toString().shortenNumber(),
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
@@ -81,7 +82,7 @@ Widget imageTile(BuildContext context, ImageModel image) {
                     ),
                     kWidth(4),
                     Text(
-                      image.views.toString(),
+                      image.views.toString().shortenNumber(),
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
@@ -97,18 +98,13 @@ Widget imageTile(BuildContext context, ImageModel image) {
 
 Route createCustomPageRoute({
   required Widget Function(BuildContext) pageBuilder,
-  Duration transitionDuration = const Duration(milliseconds: 500),
+  Duration transitionDuration = const Duration(milliseconds: 300),
 }) {
   return PageRouteBuilder(
     transitionDuration: transitionDuration,
     pageBuilder: (context, animation, secondaryAnimation) =>
         pageBuilder(context),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = const Offset(0.0, 1.0);
-      var end = Offset.zero;
-      var curve = Curves.easeInOut;
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      var offsetAnimation = animation.drive(tween);
       return ScaleTransition(
         scale: Tween<double>(
           begin: 0.0,
